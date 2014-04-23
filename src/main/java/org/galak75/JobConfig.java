@@ -55,7 +55,7 @@ public class JobConfig {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                contribution.setExitStatus(new ExitStatus("CUSTOM_STEP_STATUS"));
+                contribution.setExitStatus(new ExitStatus("NOOP_CUSTOM_STEP_STATUS"));
                 return RepeatStatus.FINISHED;
             }
         };
