@@ -14,7 +14,7 @@ public class TraceListener implements StepExecutionListener, JobExecutionListene
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        System.out.println(String.format(" ** After step '%s'", stepExecution.getStepName()));
+        System.out.println(String.format(" ** After step '%s' : %s", stepExecution.getStepName(), stepExecution.getExitStatus().getExitCode()));
         return null;
     }
 
@@ -26,10 +26,11 @@ public class TraceListener implements StepExecutionListener, JobExecutionListene
     @Override
     public void afterJob(JobExecution jobExecution) {
         System.out.println(String.format(" ** After job '%s'", jobExecution.getJobInstance().getJobName()));
+
         if (!jobExecution.getAllFailureExceptions().isEmpty()) {
-            System.out.printf("    Exiting with %s failures :", jobExecution.getAllFailureExceptions().size());
+            System.out.println(String.format("    Exiting with %s failures :", jobExecution.getAllFailureExceptions().size()));
             for (Throwable failure : jobExecution.getAllFailureExceptions()) {
-                System.out.printf("    - %s", failure.getMessage());
+                System.out.println(String.format("    - %s", failure.getMessage()));
             }
         }
     }
