@@ -24,12 +24,16 @@ public class JobConfig {
     @Autowired
     private StepBuilderFactory steps;
 
+    private static final String STEP_STATUS = "NOOP_CUSTOM_STEP_STATUS";
+    private static final String FLOW_STATUS = "CUSTOM_FLOW_STATUS";
+    private static final String JOB_EXIT = "CUSTOM_EXIT";
+
 
     @Bean
     public Job job() {
         return jobs.get("job")
                 .start(flow_1())
-                .on("CUSTOM_FLOW_STATUS").end("CUSTOM_EXIT")
+                .on(FLOW_STATUS).end(JOB_EXIT)
                 .next(flow_2())
                 .build()
                 .listener(traceListener())
@@ -45,7 +49,7 @@ public class JobConfig {
     public Flow flow_1() {
         return new FlowBuilder<SimpleFlow>("flow_1")
                 .start(step_1_1())
-                .on("CUSTOM_STEP_STATUS").end("CUSTOM_FLOW_STATUS")
+                .on(STEP_STATUS).end(FLOW_STATUS)
                 .next(step_1_2())
                 .build();
     }
@@ -63,7 +67,7 @@ public class JobConfig {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                contribution.setExitStatus(new ExitStatus("NOOP_CUSTOM_STEP_STATUS"));
+                contribution.setExitStatus(new ExitStatus(STEP_STATUS));
                 return RepeatStatus.FINISHED;
             }
         };
@@ -82,8 +86,7 @@ public class JobConfig {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                System.out.println(String.format(" *** step '%s' is failing!", chunkContext.getStepContext().getStepName()));
-                throw new RuntimeException("step is failing!");
+                throw new RuntimeException(String.format("step '%s' is failing!", chunkContext.getStepContext().getStepName()));
             }
         };
     }
