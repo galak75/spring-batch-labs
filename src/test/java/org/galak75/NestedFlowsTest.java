@@ -24,6 +24,9 @@ public class NestedFlowsTest {
     public void firstTest() throws Exception {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
+        System.out.println(String.format(" *** Batch Status : %s", jobExecution.getStatus()));
+        System.out.println(String.format(" *** Exit Status : %s", jobExecution.getExitStatus()));
+
         assertEquals(JobConfig.JOB_EXIT, jobExecution.getExitStatus().getExitCode());
     }
 
