@@ -25,7 +25,7 @@ public class JobConfig {
     private StepBuilderFactory steps;
 
     private static final String STEP_STATUS = "NOOP_CUSTOM_STEP_STATUS";
-    private static final String FLOW_STATUS = "CUSTOM_FLOW_STATUS";
+    private static final String FLOW_STATUS = "NOOP_CUSTOM_FLOW_STATUS";
     private static final String JOB_EXIT = "CUSTOM_EXIT";
 
 
