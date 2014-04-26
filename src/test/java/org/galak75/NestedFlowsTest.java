@@ -24,7 +24,7 @@ public class NestedFlowsTest {
     public void firstTest() throws Exception {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
-        assertEquals("CUSTOM_EXIT", jobExecution.getExitStatus().getExitCode());
+        assertEquals(JobConfig.JOB_EXIT, jobExecution.getExitStatus().getExitCode());
     }
 
 }
