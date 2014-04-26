@@ -31,7 +31,14 @@ public class JobConfig {
                 .start(flow_1())
                 .on("CUSTOM_FLOW_STATUS").end("CUSTOM_EXIT")
                 .next(flow_2())
-                .build().build();
+                .build()
+                .listener(traceListener())
+                .build();
+    }
+
+    @Bean
+    public TraceListener traceListener() {
+        return new TraceListener();
     }
 
     @Bean
@@ -47,6 +54,7 @@ public class JobConfig {
     public Step step_1_1() {
         return steps.get("step_1_1")
                 .tasklet(tasklet_1_1())
+                .listener(traceListener())
                 .build();
     }
 
@@ -64,16 +72,18 @@ public class JobConfig {
     @Bean
     public Step step_1_2() {
         return steps.get("step_1_2")
-                .tasklet(tasklet_1_2())
+                .tasklet(failingTasklet())
+                .listener(traceListener())
                 .build();
     }
 
     @Bean
-    public Tasklet tasklet_1_2() {
+    public Tasklet failingTasklet() {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                throw new RuntimeException("step_1_2 is failing!");
+                System.out.println(String.format(" *** step '%s' is failing!", chunkContext.getStepContext().getStepName()));
+                throw new RuntimeException("step is failing!");
             }
         };
     }
@@ -88,18 +98,9 @@ public class JobConfig {
     @Bean
     public Step step_2_1() {
         return steps.get("step_2_1")
-                .tasklet(tasklet_2_1())
+                .tasklet(failingTasklet())
+                .listener(traceListener())
                 .build();
-    }
-
-    @Bean
-    public Tasklet tasklet_2_1() {
-        return new Tasklet() {
-            @Override
-            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                throw new RuntimeException("step_2_1 is failing!");
-            }
-        };
     }
 
 }
