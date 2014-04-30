@@ -96,9 +96,7 @@ public class ParallelFlowsJobConfig {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                System.out.println(String.format("  * Starting step '%s'", chunkContext.getStepContext().getStepName()));
                 Thread.sleep(1000);
-                System.out.println(String.format("  * Stopping step '%s'", chunkContext.getStepContext().getStepName()));
                 return RepeatStatus.FINISHED;
             }
         };
