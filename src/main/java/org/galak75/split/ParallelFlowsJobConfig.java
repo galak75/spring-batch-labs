@@ -19,6 +19,10 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 @Configuration
 public class ParallelFlowsJobConfig {
 
+    public static final String STEP_1 = "Step 1";
+    public static final String STEP_2 = "Step 2";
+    public static final String STEP_3 = "Step 3";
+
     @Autowired
     private JobBuilderFactory jobs;
     @Autowired
@@ -65,7 +69,7 @@ public class ParallelFlowsJobConfig {
 
     @Bean
     public Step step1() {
-        return steps.get("Step 1")
+        return steps.get(STEP_1)
                 .tasklet(waitingTasklet())
                 .listener(traceListener())
                 .build();
@@ -73,7 +77,7 @@ public class ParallelFlowsJobConfig {
 
     @Bean
     public Step step2() {
-        return steps.get("Step 1")
+        return steps.get(STEP_2)
                 .tasklet(waitingTasklet())
                 .listener(traceListener())
                 .build();
@@ -81,7 +85,7 @@ public class ParallelFlowsJobConfig {
 
     @Bean
     public Step step3() {
-        return steps.get("Step 1")
+        return steps.get(STEP_3)
                 .tasklet(waitingTasklet())
                 .listener(traceListener())
                 .build();
