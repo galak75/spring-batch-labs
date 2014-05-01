@@ -1,0 +1,30 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/batch
+	http://www.springframework.org/schema/batch/spring-batch.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <job id="myJob">
+        <step id="step1">
+            <fail on="CUSTOM_EXIT_STATUS"/>
+            <next on="*" to="step2"/>
+        </step>
+
+        <step id="step2">
+            <end on="1ST_EXIT_STATUS"/>
+            <next on="2ND_EXIT_STATUS" to="step10"/>
+            <next on="*" to="step20"/>
+        </step>
+
+        <step id="step10" next="step11"/>
+        <step id="step11"/>
+
+        <step id="step20" next="step21"/>
+        <step id="step21" next="step22"/>
+        <step id="step22"/>
+    </job>
+
+</beans:beans>
