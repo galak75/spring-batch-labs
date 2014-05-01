@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @ContextConfiguration(classes = {SpringBatchInfrastructureITestConfiguration.class, ParallelFlowsJobConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,5 +28,11 @@ public class ParallelFlowsJobConfigTest {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
         assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
+
+        assertThat(jobExecution.getStepExecutions(), containsInAnyOrder(
+                hasProperty("stepName", equalTo(ParallelFlowsJobConfig.STEP_1)),
+                hasProperty("stepName", equalTo(ParallelFlowsJobConfig.STEP_2)),
+                hasProperty("stepName", equalTo(ParallelFlowsJobConfig.STEP_3))
+        ));
     }
 }
