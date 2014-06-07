@@ -94,7 +94,7 @@ public class ComplexFlowJavaConfigTest {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
         assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
-        assertThat(jobExecution.getExitStatus().getExitCode(), is(equalTo("NOOP_EARLY_STATUS")));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(equalTo("NOOP_EARLY_END")));
 
         assertThat(jobExecution.getStepExecutions(), contains(
                 hasProperty("stepName", equalTo("step1")),

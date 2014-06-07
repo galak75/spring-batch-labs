@@ -28,7 +28,7 @@ public class ComplexFlowConfig {
                 .start(step1()).on("CUSTOM_EXIT_STATUS").fail()
                 .from(step1()).next(step2())
 
-                .from(step2()).on("1ST_EXIT_STATUS").end("NOOP_EARLY_STATUS")
+                .from(step2()).on("1ST_EXIT_STATUS").end("NOOP_EARLY_END")
                 .from(step2()).on("").to(step10()).next(step11())
                 .from(step2()).next(step20()).next(step21()).next(step22())
 
