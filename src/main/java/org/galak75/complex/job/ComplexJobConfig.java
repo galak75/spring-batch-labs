@@ -1,4 +1,4 @@
-package org.galak75.complex;
+package org.galak75.complex.job;
 
 import org.galak75.SystemPropertyTasklet;
 import org.springframework.batch.core.Job;
