@@ -14,7 +14,7 @@
 
         <step id="step2">
             <tasklet ref="tasklet2"/>
-            <end on="1ST_EXIT_STATUS"/>
+            <end on="1ST_EXIT_STATUS" exit-code="NOOP_EARLY_END"/>
             <next on="2ND_EXIT_STATUS" to="step10"/>
             <next on="*" to="step20"/>
         </step>
