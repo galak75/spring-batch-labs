@@ -5,7 +5,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,11 +15,11 @@ import javax.sql.DataSource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class ComplexFlowJavaConfigTest extends AbstractComplexFlowTest {
+public class ComplexJobXmlConfigTest extends AbstractComplexJobTest {
 
     @Configuration
     @EnableBatchProcessing
-    @Import(ComplexFlowConfig.class)
+    @ImportResource("classpath:complex-job-config.xml")
     public static class TestConfig {
         @Bean
         public DataSource jobRepositoryDataSource(){
@@ -35,6 +35,5 @@ public class ComplexFlowJavaConfigTest extends AbstractComplexFlowTest {
             return new JobLauncherTestUtils();
         }
     }
-
 
 }

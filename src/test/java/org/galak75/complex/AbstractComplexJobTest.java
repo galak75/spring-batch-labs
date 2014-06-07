@@ -14,7 +14,7 @@ import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.Assert.assertThat;
 
-public abstract class AbstractComplexFlowTest {
+public abstract class AbstractComplexJobTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
