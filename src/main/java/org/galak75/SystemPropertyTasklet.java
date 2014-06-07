@@ -18,6 +18,9 @@ public class SystemPropertyTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
         String exitCode = System.getProperty(exitCodeProperty);
+        if ("FAIL".equalsIgnoreCase(exitCode)) {
+            throw new RuntimeException(String.format("'%s' failed!", chunkContext.getStepContext().getStepName()));
+        }
         if (StringUtils.isNotBlank(exitCode)) {
             chunkContext.getStepContext().getStepExecution().setExitStatus(new ExitStatus(exitCode));
         }
