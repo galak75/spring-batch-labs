@@ -1,30 +1,71 @@
 <beans:beans xmlns="http://www.springframework.org/schema/batch"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/batch
-	http://www.springframework.org/schema/batch/spring-batch.xsd
-	http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans.xsd">
+             xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <!--<context:annotation-config />-->
+
+    <!--<job-repository/>-->
+
+    <!--<jdbc:embedded-database id="dataSource" type="HSQL">-->
+        <!--<jdbc:script location="classpath:org/springframework/batch/core/schema-hsqldb.sql"/>-->
+    <!--</jdbc:embedded-database>-->
+
+    <!--<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<beans:property name="dataSource" ref="dataSource"/>-->
+    <!--</beans:bean>-->
+
+    <!--<beans:bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">-->
+        <!--<beans:property name="jobRepository" ref="jobRepository"/>-->
+    <!--</beans:bean>-->
 
     <job id="myJob">
         <step id="step1">
+            <tasklet ref="tasklet1"/>
             <fail on="CUSTOM_EXIT_STATUS"/>
             <next on="*" to="step2"/>
         </step>
 
         <step id="step2">
+            <tasklet ref="tasklet2"/>
             <end on="1ST_EXIT_STATUS"/>
             <next on="2ND_EXIT_STATUS" to="step10"/>
             <next on="*" to="step20"/>
         </step>
 
-        <step id="step10" next="step11"/>
-        <step id="step11"/>
+        <step id="step10" next="step11">
+            <tasklet ref="defaultTasklet"/>
+        </step>
+        <step id="step11">
+            <tasklet ref="defaultTasklet" />
+        </step>
 
-        <step id="step20" next="step21"/>
-        <step id="step21" next="step22"/>
-        <step id="step22"/>
+        <step id="step20" next="step21">
+            <tasklet ref="defaultTasklet" />
+        </step>
+        <step id="step21" next="step22">
+            <tasklet ref="defaultTasklet" />
+        </step>
+        <step id="step22">
+            <tasklet ref="defaultTasklet" />
+        </step>
     </job>
+
+    <beans:bean id="defaultTasklet" class="org.galak75.MyTasklet" scope="prototype">
+        <beans:property name="exitCodeProperty" value="DEFAULT"/>
+    </beans:bean>
+
+    <beans:bean id="tasklet1" class="org.galak75.MyTasklet">
+        <beans:property name="exitCodeProperty" value="STEP1"/>
+    </beans:bean>
+
+    <beans:bean id="tasklet2" class="org.galak75.MyTasklet">
+        <beans:property name="exitCodeProperty" value="STEP2"/>
+    </beans:bean>
+
 
 </beans:beans>
