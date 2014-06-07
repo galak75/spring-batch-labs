@@ -19,6 +19,8 @@ public class ComplexJobConfig {
     private StepBuilderFactory steps;
 
 
+    // TODO : Write similar configs and test using flows (see http://docs.spring.io/spring-batch/2.2.x/reference/html/configureStep.html#external-flows)
+
     // ***********************************
     // Job
 
