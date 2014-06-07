@@ -11,6 +11,7 @@ import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -27,11 +28,11 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class ComplexFlowXmlConfigTest {
+public class ComplexFlowJavaConfigTest {
 
     @Configuration
     @EnableBatchProcessing
-    @ImportResource("classpath:complex-flow-config.xml")
+    @Import(ComplexFlowConfig.class)
     public static class TestConfig {
         @Bean
         public DataSource jobRepositoryDataSource(){
@@ -93,7 +94,7 @@ public class ComplexFlowXmlConfigTest {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
         assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
-        assertThat(jobExecution.getExitStatus().getExitCode(), is(equalTo("NOOP_EARLY_END")));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(equalTo("NOOP_EARLY_STATUS")));
 
         assertThat(jobExecution.getStepExecutions(), contains(
                 hasProperty("stepName", equalTo("step1")),
