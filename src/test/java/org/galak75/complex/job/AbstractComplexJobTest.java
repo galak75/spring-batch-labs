@@ -48,7 +48,7 @@ public abstract class AbstractComplexJobTest {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
         assertThat(jobExecution.getStatus(), is(BatchStatus.FAILED));
-        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.FAILED.getExitCode()));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is("FAILED_ON_CUSTOM_EXIT_STATUS"));
 
         assertThat(jobExecution.getStepExecutions(), contains(
                 hasProperty("stepName", equalTo("step1"))

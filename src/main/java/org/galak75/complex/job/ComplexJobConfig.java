@@ -25,7 +25,7 @@ public class ComplexJobConfig {
     @Bean
     public Job myJob() {
         return jobs.get("myJob")
-                .start(step1()).on("CUSTOM_EXIT_STATUS").fail()
+                .start(step1()).on("CUSTOM_EXIT_STATUS").fail() // FIXME : Not able to choose a custom exit code
                 .from(step1()).next(step2())
 
                 .from(step2()).on("1ST_EXIT_STATUS").end("NOOP_EARLY_END")
