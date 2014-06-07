@@ -1,6 +1,6 @@
 package org.galak75.complex;
 
-import org.galak75.MyTasklet;
+import org.galak75.SystemPropertyTasklet;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -94,18 +94,18 @@ public class ComplexFlowConfig {
 
     @Bean
     @Scope("prototype")
-    public MyTasklet defaultTasklet() {
-        return new MyTasklet("DEFAULT");
+    public SystemPropertyTasklet defaultTasklet() {
+        return new SystemPropertyTasklet("DEFAULT");
     }
 
     @Bean
-    public MyTasklet tasklet1() {
-        return new MyTasklet("STEP1");
+    public SystemPropertyTasklet tasklet1() {
+        return new SystemPropertyTasklet("STEP1");
     }
 
     @Bean
-    public MyTasklet tasklet2() {
-        return new MyTasklet("STEP2");
+    public SystemPropertyTasklet tasklet2() {
+        return new SystemPropertyTasklet("STEP2");
     }
 
 }

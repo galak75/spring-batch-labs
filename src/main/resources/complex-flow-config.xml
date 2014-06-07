@@ -37,15 +37,15 @@
         </step>
     </job>
 
-    <beans:bean id="defaultTasklet" class="org.galak75.MyTasklet" scope="prototype">
+    <beans:bean id="defaultTasklet" class="org.galak75.SystemPropertyTasklet" scope="prototype">
         <beans:constructor-arg name="exitCodeProperty" value="DEFAULT"/>
     </beans:bean>
 
-    <beans:bean id="tasklet1" class="org.galak75.MyTasklet">
+    <beans:bean id="tasklet1" class="org.galak75.SystemPropertyTasklet">
         <beans:constructor-arg name="exitCodeProperty" value="STEP1"/>
     </beans:bean>
 
-    <beans:bean id="tasklet2" class="org.galak75.MyTasklet">
+    <beans:bean id="tasklet2" class="org.galak75.SystemPropertyTasklet">
         <beans:constructor-arg name="exitCodeProperty" value="STEP2"/>
     </beans:bean>
 

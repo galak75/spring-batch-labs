@@ -7,11 +7,11 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
-public class MyTasklet implements Tasklet {
+public class SystemPropertyTasklet implements Tasklet {
 
     private String exitCodeProperty;
 
-    public MyTasklet(String exitCodeProperty) {
+    public SystemPropertyTasklet(String exitCodeProperty) {
         this.exitCodeProperty = exitCodeProperty;
     }
 
