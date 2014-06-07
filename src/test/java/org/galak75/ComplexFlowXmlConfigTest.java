@@ -30,7 +30,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class ComplexFlowTest {
+public class ComplexFlowXmlConfigTest {
 
     @Configuration
     @EnableBatchProcessing
