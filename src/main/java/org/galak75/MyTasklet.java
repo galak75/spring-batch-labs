@@ -11,6 +11,10 @@ public class MyTasklet implements Tasklet {
 
     private String exitCodeProperty;
 
+    public MyTasklet(String exitCodeProperty) {
+        this.exitCodeProperty = exitCodeProperty;
+    }
+
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
         String exitCode = System.getProperty(exitCodeProperty);
@@ -18,9 +22,5 @@ public class MyTasklet implements Tasklet {
             chunkContext.getStepContext().getStepExecution().setExitStatus(new ExitStatus(exitCode));
         }
         return null;
-    }
-
-    public void setExitCodeProperty(String exitCodeProperty) {
-        this.exitCodeProperty = exitCodeProperty;
     }
 }

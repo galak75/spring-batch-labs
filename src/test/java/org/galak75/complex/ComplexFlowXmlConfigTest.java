@@ -1,4 +1,4 @@
-package org.galak75;
+package org.galak75.complex;
 
 import org.junit.Before;
 import org.junit.Test;
