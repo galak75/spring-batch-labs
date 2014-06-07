@@ -23,6 +23,7 @@ public abstract class AbstractComplexJobTest {
     public void beforeEachTest() {
         System.setProperty("STEP1", "");
         System.setProperty("STEP2", "");
+        System.setProperty("DEFAULT", "");
     }
 
     @Test
@@ -81,6 +82,19 @@ public abstract class AbstractComplexJobTest {
                 hasProperty("stepName", equalTo("step2")),
                 hasProperty("stepName", equalTo("step10")),
                 hasProperty("stepName", equalTo("step11"))
+        ));
+    }
+
+    @Test
+    public void testJobFailingAtStep1() throws Exception {
+        System.setProperty("STEP1", "FAIL");
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+
+        assertThat(jobExecution.getStatus(), is(BatchStatus.FAILED));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.FAILED.getExitCode()));
+
+        assertThat(jobExecution.getStepExecutions(), contains(
+                hasProperty("stepName", equalTo("step1"))
         ));
     }
 }

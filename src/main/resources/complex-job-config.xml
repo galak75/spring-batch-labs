@@ -9,7 +9,7 @@
         <step id="step1">
             <tasklet ref="tasklet1"/>
             <fail on="CUSTOM_EXIT_STATUS"/>
-            <next on="*" to="step2"/>
+            <next on="COMPLETED" to="step2"/>
         </step>
 
         <step id="step2">
