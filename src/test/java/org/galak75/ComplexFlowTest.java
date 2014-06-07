@@ -20,7 +20,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,10 +54,27 @@ public class ComplexFlowTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @Test
-    public void firstTest() throws Exception {
+    public void testSuccessfulExecution() throws Exception {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
 
         assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
         assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.COMPLETED.getExitCode()));
+
+        assertThat(jobExecution.getStepExecutions(), contains(
+                hasProperty("stepName", equalTo("step1")),
+                hasProperty("stepName", equalTo("step2")),
+                hasProperty("stepName", equalTo("step20")),
+                hasProperty("stepName", equalTo("step21")),
+                hasProperty("stepName", equalTo("step22"))
+        ));
     }
+
+//    @Test
+//    public void testStep1Failing() throws Exception {
+//        System.setProperty("STEP1", "CUSTOM_EXIT_STATUS");
+//        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+//
+//        assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
+//        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.COMPLETED.getExitCode()));
+//    }
 }
