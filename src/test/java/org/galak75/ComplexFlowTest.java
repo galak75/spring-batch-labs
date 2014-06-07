@@ -1,5 +1,6 @@
 package org.galak75;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.BatchStatus;
@@ -53,6 +54,13 @@ public class ComplexFlowTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
+
+    @Before
+    public void beforeEachTest() {
+        System.setProperty("STEP1", "");
+        System.setProperty("STEP2", "");
+    }
+
     @Test
     public void testSuccessfulExecution() throws Exception {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
@@ -69,12 +77,46 @@ public class ComplexFlowTest {
         ));
     }
 
-//    @Test
-//    public void testStep1Failing() throws Exception {
-//        System.setProperty("STEP1", "CUSTOM_EXIT_STATUS");
-//        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-//
-//        assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
-//        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.COMPLETED.getExitCode()));
-//    }
+    @Test
+    public void testFailingAfterStep1() throws Exception {
+        System.setProperty("STEP1", "CUSTOM_EXIT_STATUS");
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+
+        assertThat(jobExecution.getStatus(), is(BatchStatus.FAILED));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.FAILED.getExitCode()));
+
+        assertThat(jobExecution.getStepExecutions(), contains(
+                hasProperty("stepName", equalTo("step1"))
+        ));
+    }
+
+    @Test
+    public void testEndingAfterStep2() throws Exception {
+        System.setProperty("STEP2", "1ST_EXIT_STATUS");
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+
+        assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.COMPLETED.getExitCode()));
+
+        assertThat(jobExecution.getStepExecutions(), contains(
+                hasProperty("stepName", equalTo("step1")),
+                hasProperty("stepName", equalTo("step2"))
+        ));
+    }
+
+    @Test
+    public void testChangingFlowAfterStep2() throws Exception {
+        System.setProperty("STEP2", "2ND_EXIT_STATUS");
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+
+        assertThat(jobExecution.getStatus(), is(BatchStatus.COMPLETED));
+        assertThat(jobExecution.getExitStatus().getExitCode(), is(ExitStatus.COMPLETED.getExitCode()));
+
+        assertThat(jobExecution.getStepExecutions(), contains(
+                hasProperty("stepName", equalTo("step1")),
+                hasProperty("stepName", equalTo("step2")),
+                hasProperty("stepName", equalTo("step10")),
+                hasProperty("stepName", equalTo("step11"))
+        ));
+    }
 }
