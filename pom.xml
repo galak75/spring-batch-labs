@@ -9,7 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <spring-batch.version>2.2.6.RELEASE</spring-batch.version>
+        <spring-batch.version>3.0.4.RELEASE</spring-batch.version>
     </properties>
 
     <dependencies>
