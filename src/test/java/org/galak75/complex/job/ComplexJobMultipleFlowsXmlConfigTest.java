@@ -19,7 +19,7 @@ public class ComplexJobMultipleFlowsXmlConfigTest extends AbstractComplexJobTest
 
     @Configuration
     @EnableBatchProcessing
-    @ImportResource("classpath:complex-job-single-flow-config.xml")
+    @ImportResource("classpath:complex-job-multiple-flows-config.xml")
     public static class TestConfig {
         @Bean
         public DataSource jobRepositoryDataSource() {

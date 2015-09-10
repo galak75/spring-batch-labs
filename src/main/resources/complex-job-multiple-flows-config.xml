@@ -19,17 +19,29 @@
         <step id="step2">
             <tasklet ref="tasklet2"/>
             <end on="1ST_EXIT_STATUS" exit-code="NOOP_EARLY_END"/>
-            <next on="2ND_EXIT_STATUS" to="step10"/>
-            <next on="*" to="step20"/>
+            <next on="2ND_EXIT_STATUS" to="step.flowA"/>
+            <next on="*" to="step.flowB"/>
         </step>
 
+        <step id="step.flowA">
+            <flow parent="flowA"/>
+        </step>
+
+        <step id="step.flowB">
+            <flow parent="flowB"/>
+        </step>
+    </flow>
+
+    <flow id="flowA">
         <step id="step10" next="step11">
             <tasklet ref="defaultTasklet"/>
         </step>
         <step id="step11">
             <tasklet ref="defaultTasklet"/>
         </step>
+    </flow>
 
+    <flow id="flowB">
         <step id="step20" next="step21">
             <tasklet ref="defaultTasklet"/>
         </step>
