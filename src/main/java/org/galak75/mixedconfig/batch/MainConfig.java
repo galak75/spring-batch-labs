@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @Import(StepsConfig.class)
-@ImportResource({"classpath:org/galak75/mixedconfig/main-flow.xml"})
+@ImportResource({"classpath:org/galak75/mixedconfig/batch/main-flow.xml"})
 public class MainConfig {
 
     @Autowired
