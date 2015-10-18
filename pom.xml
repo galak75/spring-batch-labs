@@ -9,8 +9,19 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <spring-batch.version>3.0.4.RELEASE</spring-batch.version>
+        <spring-batch.version>3.0.5.RELEASE</spring-batch.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -22,7 +33,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.0.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
