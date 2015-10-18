@@ -1,5 +1,6 @@
-package org.galak75;
+package org.galak75.nestedconfig;
 
+import org.galak75.SpringBatchInfrastructureITestConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.JobExecution;

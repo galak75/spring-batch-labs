@@ -1,5 +1,6 @@
-package org.galak75;
+package org.galak75.nestedconfig;
 
+import org.galak75.TraceListener;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
