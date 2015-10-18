@@ -1,4 +1,4 @@
-package org.galak75.mixedconfig;
+package org.galak75.mixedconfig.batch;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;

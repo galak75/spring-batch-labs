@@ -1,4 +1,4 @@
-package org.galak75.mixedconfig;
+package org.galak75.mixedconfig.batch;
 
 import org.galak75.SystemPropertyTasklet;
 import org.springframework.batch.core.Step;

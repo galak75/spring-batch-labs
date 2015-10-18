@@ -1,4 +1,4 @@
-package org.galak75.mixedconfig;
+package org.galak75.mixedconfig.batch;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
